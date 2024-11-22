@@ -17,8 +17,10 @@
 #include "gpio.h"
 #include "usart.h"
 #include "stdio.h"
+#include "stdlib.h"
+#include "weight_data.h"
 /*----------------------------------宏定义---------------------------*/
-#define Linear_Actuator(x) HAL_GPIO_WritePin(GPIOI, GPIO_PIN_7, x) // 电推杆IO
+#define Linear_Actuator(x) HAL_GPIO_WritePin(GPIOI, GPIO_PIN_7, (x) ? GPIO_PIN_SET : GPIO_PIN_RESET) // 电推杆IO
 /*----------------------------------内部函数---------------------------*/
 /**
  * @brief          射击模式设置
@@ -95,7 +97,7 @@ static void Motor_Block(Shoot_Motor_t*blocking_motor);
  * @param[in]      void
  * @retval         返回空
  */
-static void Micro_switch_feedback();
+static void Micro_switch_feedback(void);
 
 /**
  * @brief          设置发射控制模式
@@ -140,6 +142,7 @@ int reload_back_flag = 1;
 double time_flag = 0;
 double last_time_flag = 0;
 int shoot_finish_flag = 1;
+int start_control_flag = 0;
 /*----------------------------------结构体------------------------------*/
 Shoot_Motor_t missile_shoot_motor; 
 Shoot_Motor_t pull_spring_motor; 
@@ -171,6 +174,7 @@ void shoot_task(void const *pvParameters)
     {
 		//扳机舵机控制
 		SERIO_Control();
+//		weight_send_IRQ();
         // 设置发射模式
         Shoot_Set_Mode();
         // 发射数据更新
@@ -420,75 +424,85 @@ static void shoot_set_control_mode(missile_shoot_move_t *missile_shoot_set_contr
 
     // 运行模式
 
-    // 判断初始化是否完成
-    if (shoot_control_mode == SHOOT_INIT_CONTROL)
+    // 判断初始化是否开启
+    // if (shoot_control_mode == SHOOT_INIT_CONTROL)
+    // {
+    //     static uint32_t init_time = 0;
+    //     // 判断拨杆是否拨到下档
+    //     if (switch_is_down(missile_shoot_set_control->shoot_rc->rc.s[SHOOT_CONTROL_CHANNEL]))
+    //     {
+    //         // 拨到下档停止初始化
+    //         init_time = 0;
+    //     }
+    //     else
+    //     {
+    //         // 判断是否初始化完成
+    //         if (shoot_init_state == SHOOT_INIT_UNFINISH)
+    //         {
+    //             // 初始化未完成
+
+    //             // 判断初始化时间是否过长
+    //             if (init_time >= SHOOT_TASK_S_TO_MS(SHOOT_TASK_MAX_INIT_TIME))
+    //             {
+    //                 // 初始化时间过长不进行初始化，进入其他模式
+    //                 init_time = 0;
+    //             }
+    //             else
+    //             {
+    //                     // 初始化模式保持原状，初始化时间增加
+    //                     init_time++;
+    //                     return;
+	// 							}
+	// 						}
+    //         else
+    //         {
+    //             // 进入其他模式
+    //             init_time = 0;
+    //         }
+    //     }
+    // }
+
+    //开电时遥控器拨杆状态保护
+    if (switch_is_mid(missile_shoot_set_control->shoot_rc->rc.s[SHOOT_CONTROL_CHANNEL]) && switch_is_mid(missile_shoot_set_control->shoot_rc->rc.s[0])
+        && start_control_flag == 0)
     {
-        static uint32_t init_time = 0;
-        // 判断拨杆是否拨到下档
-        if (switch_is_down(missile_shoot_set_control->shoot_rc->rc.s[SHOOT_CONTROL_CHANNEL]))
+        start_control_flag = 1;
+    }
+    if(start_control_flag == 1)
+    {
+        // 根据遥控器开关设置发射控制模式
+        if (switch_is_up(missile_shoot_set_control->shoot_rc->rc.s[SHOOT_CONTROL_CHANNEL]))
         {
-            // 拨到下档停止初始化
-            init_time = 0;
+            // 发射后两发
+            shoot_control_mode = SHOOT_LAST_TWO;
+        }
+        else if (switch_is_mid(missile_shoot_set_control->shoot_rc->rc.s[SHOOT_CONTROL_CHANNEL]))
+        {
+            // 遥控器控制模式
+            shoot_control_mode = SHOOT_RC_CONTROL;
+        }
+        else if (switch_is_down(missile_shoot_set_control->shoot_rc->rc.s[SHOOT_CONTROL_CHANNEL]))
+        {
+            // 发射前两发
+            shoot_control_mode = SHOOT_FIRST_TWO;
         }
         else
         {
-            // 判断是否初始化完成
-            if (shoot_init_state == SHOOT_INIT_UNFINISH)
-            {
-                // 初始化未完成
-
-                // 判断初始化时间是否过长
-                if (init_time >= SHOOT_TASK_S_TO_MS(SHOOT_TASK_MAX_INIT_TIME))
-                {
-                    // 初始化时间过长不进行初始化，进入其他模式
-                    init_time = 0;
-                }
-                else
-                {
-                        // 初始化模式保持原状，初始化时间增加
-                        init_time++;
-                        return;
-								}
-							}
-            else
-            {
-                // 进入其他模式
-                init_time = 0;
-            }
+            shoot_control_mode = SHOOT_STOP_CONTROL;
         }
-    }
-    // 根据遥控器开关设置发射控制模式
-    if (switch_is_up(missile_shoot_set_control->shoot_rc->rc.s[SHOOT_CONTROL_CHANNEL]))
-    {
-        // 发射后两发
-        shoot_control_mode = SHOOT_LAST_TWO;
-    }
-    else if (switch_is_mid(missile_shoot_set_control->shoot_rc->rc.s[SHOOT_CONTROL_CHANNEL]))
-    {
-        // 遥控器控制模式
-        shoot_control_mode = SHOOT_RC_CONTROL;
-    }
-    else if (switch_is_down(missile_shoot_set_control->shoot_rc->rc.s[SHOOT_CONTROL_CHANNEL]))
-    {
-        // 发射前两发
-        shoot_control_mode = SHOOT_FIRST_TWO;
-    }
-    else
-    {
-        shoot_control_mode = SHOOT_STOP_CONTROL;
-    }
-		
-		if (switch_is_up(missile_shoot_set_control->shoot_rc->rc.s[0])&&switch_is_mid(missile_shoot_set_control->shoot_rc->rc.s[SHOOT_CONTROL_CHANNEL]))
-    {
-        Linear_Actuator(0);
-    }
-    else if (switch_is_down(missile_shoot_set_control->shoot_rc->rc.s[0])&&switch_is_mid(missile_shoot_set_control->shoot_rc->rc.s[SHOOT_CONTROL_CHANNEL]))
-    {
-        Linear_Actuator(1);
+            
+            if (switch_is_up(missile_shoot_set_control->shoot_rc->rc.s[0])&&switch_is_mid(missile_shoot_set_control->shoot_rc->rc.s[SHOOT_CONTROL_CHANNEL]))
+        {
+            Linear_Actuator(0);
+        }
+        else if (switch_is_down(missile_shoot_set_control->shoot_rc->rc.s[0])&&switch_is_mid(missile_shoot_set_control->shoot_rc->rc.s[SHOOT_CONTROL_CHANNEL]))
+        {
+            Linear_Actuator(1);
+        }
     }
 
     
-    // 判断进入初始化模式
+    // 判断进入初始化模式(弃置)
     static shoot_control_mode_e last_shoot_control_mode = SHOOT_STOP_CONTROL;
     if (shoot_control_mode != SHOOT_STOP_CONTROL && last_shoot_control_mode == SHOOT_STOP_CONTROL)
     {
@@ -497,7 +511,6 @@ static void shoot_set_control_mode(missile_shoot_move_t *missile_shoot_set_contr
     }
     last_shoot_control_mode = shoot_control_mode;
 }
-
 /**
  * @brief          射击模式设置
  * @param[in]      void
@@ -560,7 +573,7 @@ void shoot_control_loop(void)
 		else if(missile_shoot_motor.set_angle >= 1700)
 		{
 			missile_shoot_motor.set_angle = 1700;
-		}		
+		}	
 //		if(shoot_step == 0)//后两发（装填并发射）
 //		{
 //			missile_shoot_motor.set_angle += 0.8f;

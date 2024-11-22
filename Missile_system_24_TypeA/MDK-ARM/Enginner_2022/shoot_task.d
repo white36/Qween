@@ -66,3 +66,6 @@ enginner_2022\shoot_task.o: ../Core/Inc/tim.h
 enginner_2022\shoot_task.o: ../Core/Inc/gpio.h
 enginner_2022\shoot_task.o: ../Core/Inc/usart.h
 enginner_2022\shoot_task.o: D:\RM programs\ARM\ARMCC\Bin\..\include\stdio.h
+enginner_2022\shoot_task.o: D:\RM programs\ARM\ARMCC\Bin\..\include\stdlib.h
+enginner_2022\shoot_task.o: ./User/weight_data.h
+enginner_2022\shoot_task.o: ./User/bsp_wd.h

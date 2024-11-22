@@ -9,7 +9,7 @@
 
 // #define	WEIGHT_FRAME_LENGTH 9u
 
-#define LARGE_BUFFER_SIZE 1024  // 较大缓冲区的大小
+#define LARGE_BUFFER_SIZE 18  // 较大缓冲区的大小
 #define PACKAGE_HEADER_SIZE 3   // 包头长度
 #define PACKAGE_SIZE 9          // 数据包的总长度（例如：01 03 04 00 00 00 00 fa 33）
 
@@ -30,10 +30,10 @@ typedef __packed struct
   
 } WeightSend_t;
 
-//储存解码后重量数据，等待被调用
+//结构体储存解码后重量数据，等待被调用
 typedef __packed struct
 {
-			uint32_t weight;
+	uint32_t weight;
 } WeightData_t;
 
 extern WeightSend_t weihgt_send;

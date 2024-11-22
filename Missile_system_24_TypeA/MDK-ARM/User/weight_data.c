@@ -16,8 +16,18 @@ extern DMA_HandleTypeDef hdma_usart6_rx;
 static void modbus_to_weight(volatile const uint8_t *modbus_buf, WeightData_t *weight_data);
 
 // 重量数据结构体
-WeightSend_t weight_send;
 WeightData_t weight_data;
+WeightSend_t weight_send = {
+    .device_address = 0x01,  // 设备地址
+    .function_code = 0x03,   // 功能码
+    .data_high1 = 0x00,      // 高位数据寄存器1
+    .data_high2 = 0x00,      // 高位数据寄存器2
+    .data_low1 = 0x00,       // 低位数据寄存器1
+    .data_low2 = 0x02,       // 低位数据寄存器2
+    .crc1 = 0xC4,            // CRC 校验码1
+    .crc2 = 0x0B             // CRC 校验码2
+};
+
 typedef enum {
     WAIT_FOR_HEADER,  // 等待接收包头
     RECEIVING_DATA    // 正在接收数据
@@ -72,40 +82,13 @@ uint16_t Modbus_CRC16(uint8_t *data, uint16_t length)
   */
 void weight_send_IRQ(void)
 {
-		weight_send.device_address = 0x01;  // 设备地址
-    weight_send.function_code = 0x03;   // 功能码
-    // weight_send.byte_count = 0x04;      // 数据字节数
-    weight_send.data_high1 = 0x00;     // 高位寄存器数据
-	  weight_send.data_high2 = 0x00;     // 高位寄存器数据
-    weight_send.data_low1 = 0x00;      // 低位寄存器数据
-	  weight_send.data_low2 = 0x02;      // 低位寄存器数据
-		weight_send.crc1 = 0xC4;
-	  weight_send.crc2 = 0x0B;
-   // weight_send.a++;
-//	//临时数组计算crc
-//		uint8_t data_to_crc[] = {
-//        weight_send.device_address,
-//        weight_send.function_code,
-//        // weight_send.byte_count,
-//        (weight_send.data_high >> 8) & 0xFF,  // 高字节
-//        weight_send.data_high & 0xFF,         // 低字节
-//        (weight_send.data_low >> 8) & 0xFF,   // 高字节
-//        weight_send.data_low & 0xFF           // 低字节
-//    };
-//	
-//		Modbus_CRC16(data_to_crc,sizeof(data_to_crc));
-//		weight_send.crc = Modbus_CRC16(data_to_crc, sizeof(data_to_crc));
-//		
-		//串口发送
-//		HAL_UART_Transmit_IT(&huart6,(uint8_t *)&weight_send,sizeof(weight_send));
-		if(a<5)
-		{
-			a++;
-		}else if(a==5)
-		{
-		HAL_UART_Transmit_IT(&huart6,(uint8_t *)&weight_send,sizeof(weight_send));
-			a=1;
-		}
+	if(a<5)
+	{
+		a++;
+	}else if(a==5){
+		HAL_UART_Transmit(&huart6,(uint8_t *)&weight_send,sizeof(weight_send),30);
+		a=0;
+	}
 }
 	
 
@@ -145,39 +128,42 @@ void weight_data_IRQ(void)
     if (huart6.Instance->SR & UART_FLAG_RXNE) // 接收到数据
     {
         uint8_t received_data = huart6.Instance->DR;
+        
 
+/*******************************************************  串口自制缓冲区  **************************************************************************/
         // 将数据存入大缓冲区
-        if (buffer_index < LARGE_BUFFER_SIZE) {
-            large_buffer[buffer_index++] = received_data;
-        } else {
-            // 如果缓冲区已满，清空缓冲区重新开始
-            buffer_index = 0;
-        }
+//        if (buffer_index < LARGE_BUFFER_SIZE) {
+//            large_buffer[buffer_index++] = received_data;
+//        } else {
+//            // 如果缓冲区已满，清空缓冲区重新开始
+//            buffer_index = 0;
+//        }
 
         // 在缓冲区中寻找包头
-        for (uint16_t i = 0; i <= buffer_index - PACKAGE_SIZE; i++) {
-            // 检查是否存在有效包头
-            if (large_buffer[i] == 0x01 && 
-                large_buffer[i + 1] == 0x03 && 
-                large_buffer[i + 2] == 0x04) 
-            {
-                // 找到包头，检查包的完整性
-                uint16_t received_crc = (large_buffer[i + PACKAGE_SIZE - 2] |
-                                         (large_buffer[i + PACKAGE_SIZE - 1] << 8));
-                uint16_t calculated_crc = Modbus_CRC16(&large_buffer[i], PACKAGE_SIZE - 2);
+//        for (uint16_t i = 0; i <= buffer_index - PACKAGE_SIZE; i++) {
+//            // 检查是否存在有效包头
+//            if (large_buffer[i] == 0x01 && 
+//                large_buffer[i + 1] == 0x03 && 
+//                large_buffer[i + 2] == 0x04) 
+//            {
+//                // 找到包头，检查包的完整性
+//                uint16_t received_crc = (large_buffer[i + PACKAGE_SIZE - 2] |
+//                                         (large_buffer[i + PACKAGE_SIZE - 1] << 8));
+//                uint16_t calculated_crc = Modbus_CRC16(&large_buffer[i], PACKAGE_SIZE - 2);
 
-                if (received_crc == calculated_crc) {
-                    // CRC校验通过，处理数据
-                    modbus_to_weight(&large_buffer[i], &weight_data);
+//                if (received_crc == calculated_crc) 
+//				  {
+//                    // CRC校验通过，处理数据
+//                    modbus_to_weight(&large_buffer[i], &weight_data);
 
-                    // 移动缓冲区，将已处理的数据清除
-                    memmove(large_buffer, &large_buffer[i + PACKAGE_SIZE], 
-                            buffer_index - (i + PACKAGE_SIZE));
-                    buffer_index -= (i + PACKAGE_SIZE);
-                    break;
-                }
-            }
-        }
+//                    // 移动缓冲区，将已处理的数据清除
+//                    memmove(large_buffer, &large_buffer[i + PACKAGE_SIZE], 
+//                            buffer_index - (i + PACKAGE_SIZE));
+//                    buffer_index -= (i + PACKAGE_SIZE);
+//                    break;
+//                }
+//            }
+//        }
     }
 }
 

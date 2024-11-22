@@ -55,3 +55,5 @@ enginner_2022\freertos.o: ../referee/fifo.h
 enginner_2022\freertos.o: D:\RM programs\ARM\ARMCC\Bin\..\include\stdio.h
 enginner_2022\freertos.o: D:\RM programs\ARM\ARMCC\Bin\..\include\string.h
 enginner_2022\freertos.o: D:\RM programs\ARM\ARMCC\Bin\..\include\stdlib.h
+enginner_2022\freertos.o: ./User/weight_data.h
+enginner_2022\freertos.o: ./User/bsp_wd.h
