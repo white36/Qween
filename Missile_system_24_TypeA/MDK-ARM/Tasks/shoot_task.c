@@ -18,7 +18,6 @@
 #include "usart.h"
 #include "stdio.h"
 #include "stdlib.h"
-#include "weight_data.h"
 /*----------------------------------宏定义---------------------------*/
 #define Linear_Actuator(x) HAL_GPIO_WritePin(GPIOI, GPIO_PIN_7, (x) ? GPIO_PIN_SET : GPIO_PIN_RESET) // 电推杆IO
 /*----------------------------------内部函数---------------------------*/
@@ -174,18 +173,22 @@ void shoot_task(void const *pvParameters)
     {
 		//扳机舵机控制
 		SERIO_Control();
-//		weight_send_IRQ();
-        // 设置发射模式
-        Shoot_Set_Mode();
-        // 发射数据更新
-        Shoot_Feedback_Update();
-        // 发射控制循环
-        shoot_control_loop();
-        // 发送控制电流
-//		CAN_CMD_MOTO(&hcan1, CAN_SHOOT_ALL_ID, 0, 0, 0, 0);
-		CAN_CMD_MOTO(&hcan1, CAN_SHOOT_ALL_ID, pull_spring_motor.give_current, reload_motor.give_current, missile_shoot_motor.give_current, yaw_motor.give_current);
-		vTaskDelay(SHOOT_TASK_DELAY_TIME);
-    }
+        //串口将信号量+1触发解码函数
+        if (xSemaphoreTake(weight_decode_semaphore, portMAX_DELAY) == pdTRUE) {
+            // 直接使用中断中记录的缓冲区，并解码到weight_data里
+            decode_weight_data(current_decode_buf, &weight_data);
+        }
+            // 设置发射模式
+            Shoot_Set_Mode();
+            // 发射数据更新
+            Shoot_Feedback_Update();
+            // 发射控制循环
+            shoot_control_loop();
+            // 发送控制电流
+            //		CAN_CMD_MOTO(&hcan1, CAN_SHOOT_ALL_ID, 0, 0, 0, 0);
+            CAN_CMD_MOTO(&hcan1, CAN_SHOOT_ALL_ID, pull_spring_motor.give_current, reload_motor.give_current, missile_shoot_motor.give_current, yaw_motor.give_current);
+            vTaskDelay(SHOOT_TASK_DELAY_TIME);
+        }
 }
 
 /**

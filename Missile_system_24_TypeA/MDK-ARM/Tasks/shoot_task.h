@@ -15,6 +15,7 @@
 #include "Moto.h"
 #include "remote_control.h"
 #include "user_lib.h"
+#include "weight_data.h"
 
 //射击遥控器控制射击控制方式的通道
 #define SHOOT_CONTROL_CHANNEL 1

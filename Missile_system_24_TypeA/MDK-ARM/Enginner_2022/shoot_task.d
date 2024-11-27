@@ -39,7 +39,9 @@ enginner_2022\shoot_task.o: ./User/remote_control.h
 enginner_2022\shoot_task.o: ./User/bsp_rc.h
 enginner_2022\shoot_task.o: ../Core/Inc/main.h
 enginner_2022\shoot_task.o: ../components/algorithm/user_lib.h
-enginner_2022\shoot_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h
+enginner_2022\shoot_task.o: ./User/weight_data.h
+enginner_2022\shoot_task.o: ./User/bsp_wd.h
+enginner_2022\shoot_task.o: D:\RM programs\ARM\ARMCC\Bin\..\include\string.h
 enginner_2022\shoot_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
 enginner_2022\shoot_task.o: ../Core/Inc/FreeRTOSConfig.h
 enginner_2022\shoot_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
@@ -47,12 +49,14 @@ enginner_2022\shoot_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/p
 enginner_2022\shoot_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h
 enginner_2022\shoot_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h
 enginner_2022\shoot_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h
+enginner_2022\shoot_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
+enginner_2022\shoot_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h
 enginner_2022\shoot_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h
 enginner_2022\shoot_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
+enginner_2022\shoot_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h
 enginner_2022\shoot_task.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h
 enginner_2022\shoot_task.o: ../components/algorithm/Include/arm_math.h
 enginner_2022\shoot_task.o: ../Drivers/CMSIS/Include/core_cm4.h
-enginner_2022\shoot_task.o: D:\RM programs\ARM\ARMCC\Bin\..\include\string.h
 enginner_2022\shoot_task.o: D:\RM programs\ARM\ARMCC\Bin\..\include\math.h
 enginner_2022\shoot_task.o: ../referee/referee.h
 enginner_2022\shoot_task.o: ../referee/protocol.h
@@ -67,5 +71,3 @@ enginner_2022\shoot_task.o: ../Core/Inc/gpio.h
 enginner_2022\shoot_task.o: ../Core/Inc/usart.h
 enginner_2022\shoot_task.o: D:\RM programs\ARM\ARMCC\Bin\..\include\stdio.h
 enginner_2022\shoot_task.o: D:\RM programs\ARM\ARMCC\Bin\..\include\stdlib.h
-enginner_2022\shoot_task.o: ./User/weight_data.h
-enginner_2022\shoot_task.o: ./User/bsp_wd.h

@@ -38,8 +38,19 @@ enginner_2022\stm32f4xx_it.o: ./User/bsp_rc.h
 enginner_2022\stm32f4xx_it.o: ./User/weight_data.h
 enginner_2022\stm32f4xx_it.o: ./Tasks/struct_typedef.h
 enginner_2022\stm32f4xx_it.o: ./User/bsp_wd.h
+enginner_2022\stm32f4xx_it.o: D:\RM programs\ARM\ARMCC\Bin\..\include\string.h
+enginner_2022\stm32f4xx_it.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
+enginner_2022\stm32f4xx_it.o: ../Core/Inc/FreeRTOSConfig.h
+enginner_2022\stm32f4xx_it.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
+enginner_2022\stm32f4xx_it.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h
+enginner_2022\stm32f4xx_it.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h
+enginner_2022\stm32f4xx_it.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h
+enginner_2022\stm32f4xx_it.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h
+enginner_2022\stm32f4xx_it.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
+enginner_2022\stm32f4xx_it.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h
+enginner_2022\stm32f4xx_it.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h
+enginner_2022\stm32f4xx_it.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
 enginner_2022\stm32f4xx_it.o: ../referee/referee_usart_task.h
 enginner_2022\stm32f4xx_it.o: ../referee/fifo.h
 enginner_2022\stm32f4xx_it.o: D:\RM programs\ARM\ARMCC\Bin\..\include\stdio.h
-enginner_2022\stm32f4xx_it.o: D:\RM programs\ARM\ARMCC\Bin\..\include\string.h
 enginner_2022\stm32f4xx_it.o: D:\RM programs\ARM\ARMCC\Bin\..\include\stdlib.h

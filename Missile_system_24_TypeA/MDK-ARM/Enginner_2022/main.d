@@ -54,3 +54,6 @@ enginner_2022\main.o: ./User/Moto.h
 enginner_2022\main.o: ./User/weight_data.h
 enginner_2022\main.o: ./Tasks/struct_typedef.h
 enginner_2022\main.o: ./User/bsp_wd.h
+enginner_2022\main.o: D:\RM programs\ARM\ARMCC\Bin\..\include\string.h
+enginner_2022\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
+enginner_2022\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h

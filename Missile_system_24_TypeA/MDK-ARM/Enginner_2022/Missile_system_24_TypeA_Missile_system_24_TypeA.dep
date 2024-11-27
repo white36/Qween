@@ -53,9 +53,12 @@ I (../Core/Inc/gpio.h)(0x67402C4D)
 I (./User/remote_control.h)(0x66E6D33B)
 I (./User/bsp_rc.h)(0x66E6E1DA)
 I (./User/Moto.h)(0x66016E74)
-I (./User/weight_data.h)(0x67454614)
+I (./User/weight_data.h)(0x6747241A)
 I (./Tasks/struct_typedef.h)(0x6543A49E)
 I (./User/bsp_wd.h)(0x6743EE3E)
+I (D:\RM programs\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
+I (../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h)(0x67402C4E)
+I (../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h)(0x67402C4E)
 F (../Core/Src/gpio.c)(0x67402C4D)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ./User -I ./Tasks -I ../referee -I ../components/controller -I ../components/algorithm/Include -I ../components/algorithm-I.\RTE\_Missile_system_24_TypeA-I"D:\RM programs\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include"-I"D:\RM programs\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="534" -D_RTE_ -DSTM32F427xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F427xx -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o enginner_2022\gpio.o --omf_browse enginner_2022\gpio.crf --depend enginner_2022\gpio.d)
 I (../Core/Inc/gpio.h)(0x67402C4D)
 I (../Core/Inc/main.h)(0x67402C4D)
@@ -134,20 +137,22 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x67402C4E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x67402C4E)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h)(0x67402C4E)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h)(0x67402C4E)
-I (./Tasks/shoot_task.h)(0x67386250)
+I (./Tasks/shoot_task.h)(0x674724C2)
 I (./Tasks/struct_typedef.h)(0x6543A49E)
 I (./User/pid.h)(0x65E9774A)
 I (./User/Moto.h)(0x66016E74)
 I (./User/remote_control.h)(0x66E6D33B)
 I (./User/bsp_rc.h)(0x66E6E1DA)
 I (../components/algorithm/user_lib.h)(0x67402C4E)
+I (./User/weight_data.h)(0x6747241A)
+I (./User/bsp_wd.h)(0x6743EE3E)
+I (D:\RM programs\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
+I (../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h)(0x67402C4E)
+I (../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h)(0x67402C4E)
 I (../referee/referee_usart_task.h)(0x67402C4E)
 I (../referee/fifo.h)(0x67402C4E)
 I (D:\RM programs\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
-I (D:\RM programs\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
 I (D:\RM programs\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
-I (./User/weight_data.h)(0x67454614)
-I (./User/bsp_wd.h)(0x6743EE3E)
 F (../Core/Src/can.c)(0x67402C4D)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ./User -I ./Tasks -I ../referee -I ../components/controller -I ../components/algorithm/Include -I ../components/algorithm-I.\RTE\_Missile_system_24_TypeA-I"D:\RM programs\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include"-I"D:\RM programs\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="534" -D_RTE_ -DSTM32F427xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F427xx -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o enginner_2022\can.o --omf_browse enginner_2022\can.crf --depend enginner_2022\can.d)
 I (../Core/Inc/can.h)(0x67402C4D)
 I (../Core/Inc/main.h)(0x67402C4D)
@@ -320,13 +325,24 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x67402C4E)
 I (../Core/Inc/stm32f4xx_it.h)(0x67402C4D)
 I (./User/remote_control.h)(0x66E6D33B)
 I (./User/bsp_rc.h)(0x66E6E1DA)
-I (./User/weight_data.h)(0x67454614)
+I (./User/weight_data.h)(0x6747241A)
 I (./Tasks/struct_typedef.h)(0x6543A49E)
 I (./User/bsp_wd.h)(0x6743EE3E)
+I (D:\RM programs\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
+I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x67402C4E)
+I (../Core/Inc/FreeRTOSConfig.h)(0x67402C4D)
+I (../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h)(0x67402C4E)
+I (../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h)(0x67402C4E)
+I (../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h)(0x67402C4E)
+I (../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h)(0x67402C4E)
+I (../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h)(0x67402C4E)
+I (../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h)(0x67402C4E)
+I (../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h)(0x67402C4E)
+I (../Middlewares/Third_Party/FreeRTOS/Source/include/task.h)(0x67402C4E)
+I (../Middlewares/Third_Party/FreeRTOS/Source/include/list.h)(0x67402C4E)
 I (../referee/referee_usart_task.h)(0x67402C4E)
 I (../referee/fifo.h)(0x67402C4E)
 I (D:\RM programs\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
-I (D:\RM programs\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
 I (D:\RM programs\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 F (../Core/Src/stm32f4xx_hal_msp.c)(0x67402C4D)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ./User -I ./Tasks -I ../referee -I ../components/controller -I ../components/algorithm/Include -I ../components/algorithm-I.\RTE\_Missile_system_24_TypeA-I"D:\RM programs\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include"-I"D:\RM programs\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="534" -D_RTE_ -DSTM32F427xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F427xx -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o enginner_2022\stm32f4xx_hal_msp.o --omf_browse enginner_2022\stm32f4xx_hal_msp.crf --depend enginner_2022\stm32f4xx_hal_msp.d)
 I (../Core/Inc/main.h)(0x67402C4D)
@@ -1515,8 +1531,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x67402C4E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x67402C4E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x67402C4E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x67402C4E)
-F (.\USER\weight_data.c)(0x6746660B)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ./User -I ./Tasks -I ../referee -I ../components/controller -I ../components/algorithm/Include -I ../components/algorithm-I.\RTE\_Missile_system_24_TypeA-I"D:\RM programs\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include"-I"D:\RM programs\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="534" -D_RTE_ -DSTM32F427xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F427xx -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o enginner_2022\weight_data.o --omf_browse enginner_2022\weight_data.crf --depend enginner_2022\weight_data.d)
-I (USER\weight_data.h)(0x67454614)
+F (.\USER\weight_data.c)(0x67472AC5)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ./User -I ./Tasks -I ../referee -I ../components/controller -I ../components/algorithm/Include -I ../components/algorithm-I.\RTE\_Missile_system_24_TypeA-I"D:\RM programs\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include"-I"D:\RM programs\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="534" -D_RTE_ -DSTM32F427xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F427xx -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o enginner_2022\weight_data.o --omf_browse enginner_2022\weight_data.crf --depend enginner_2022\weight_data.d)
+I (USER\weight_data.h)(0x6747241A)
 I (./Tasks/struct_typedef.h)(0x6543A49E)
 I (USER\bsp_wd.h)(0x6743EE3E)
 I (../Core/Inc/main.h)(0x67402C4D)
@@ -1551,8 +1567,20 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x67402C4E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x67402C4E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x67402C4E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x67402C4E)
-I (../Core/Inc/usart.h)(0x67402C4D)
 I (D:\RM programs\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
+I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x67402C4E)
+I (../Core/Inc/FreeRTOSConfig.h)(0x67402C4D)
+I (../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h)(0x67402C4E)
+I (../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h)(0x67402C4E)
+I (../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h)(0x67402C4E)
+I (../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h)(0x67402C4E)
+I (../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h)(0x67402C4E)
+I (../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h)(0x67402C4E)
+I (../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h)(0x67402C4E)
+I (../Middlewares/Third_Party/FreeRTOS/Source/include/task.h)(0x67402C4E)
+I (../Middlewares/Third_Party/FreeRTOS/Source/include/list.h)(0x67402C4E)
+I (../Core/Inc/usart.h)(0x67402C4D)
+I (D:\RM programs\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 F (.\USER\bsp_wd.c)(0x6743EE3E)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ./User -I ./Tasks -I ../referee -I ../components/controller -I ../components/algorithm/Include -I ../components/algorithm-I.\RTE\_Missile_system_24_TypeA-I"D:\RM programs\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include"-I"D:\RM programs\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="534" -D_RTE_ -DSTM32F427xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F427xx -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o enginner_2022\bsp_wd.o --omf_browse enginner_2022\bsp_wd.crf --depend enginner_2022\bsp_wd.d)
 I (USER\bsp_wd.h)(0x6743EE3E)
 I (../Core/Inc/main.h)(0x67402C4D)
@@ -1587,8 +1615,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x67402C4E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x67402C4E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x67402C4E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x67402C4E)
-F (.\Tasks\shoot_task.c)(0x67402C4E)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ./User -I ./Tasks -I ../referee -I ../components/controller -I ../components/algorithm/Include -I ../components/algorithm-I.\RTE\_Missile_system_24_TypeA-I"D:\RM programs\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include"-I"D:\RM programs\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="534" -D_RTE_ -DSTM32F427xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F427xx -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o enginner_2022\shoot_task.o --omf_browse enginner_2022\shoot_task.crf --depend enginner_2022\shoot_task.d)
-I (Tasks\shoot_task.h)(0x67386250)
+F (.\Tasks\shoot_task.c)(0x67472BB0)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ./User -I ./Tasks -I ../referee -I ../components/controller -I ../components/algorithm/Include -I ../components/algorithm-I.\RTE\_Missile_system_24_TypeA-I"D:\RM programs\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include"-I"D:\RM programs\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="534" -D_RTE_ -DSTM32F427xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F427xx -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o enginner_2022\shoot_task.o --omf_browse enginner_2022\shoot_task.crf --depend enginner_2022\shoot_task.d)
+I (Tasks\shoot_task.h)(0x674724C2)
 I (Tasks\struct_typedef.h)(0x6543A49E)
 I (./User/pid.h)(0x65E9774A)
 I (./User/Moto.h)(0x66016E74)
@@ -1627,7 +1655,9 @@ I (./User/remote_control.h)(0x66E6D33B)
 I (./User/bsp_rc.h)(0x66E6E1DA)
 I (../Core/Inc/main.h)(0x67402C4D)
 I (../components/algorithm/user_lib.h)(0x67402C4E)
-I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h)(0x67402C4E)
+I (./User/weight_data.h)(0x6747241A)
+I (./User/bsp_wd.h)(0x6743EE3E)
+I (D:\RM programs\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x67402C4E)
 I (../Core/Inc/FreeRTOSConfig.h)(0x67402C4D)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h)(0x67402C4E)
@@ -1635,11 +1665,13 @@ I (../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h)(0x67402C4E)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h)(0x67402C4E)
 I (../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h)(0x67402C4E)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h)(0x67402C4E)
+I (../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h)(0x67402C4E)
+I (../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h)(0x67402C4E)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/task.h)(0x67402C4E)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/list.h)(0x67402C4E)
+I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h)(0x67402C4E)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h)(0x67402C4E)
 I (../components/algorithm/Include/arm_math.h)(0x67402C4E)
-I (D:\RM programs\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
 I (D:\RM programs\ARM\ARMCC\include\math.h)(0x5E8E3CC2)
 I (../referee/referee.h)(0x67402C4E)
 I (../referee/protocol.h)(0x67402C4E)
@@ -1654,8 +1686,6 @@ I (../Core/Inc/gpio.h)(0x67402C4D)
 I (../Core/Inc/usart.h)(0x67402C4D)
 I (D:\RM programs\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
 I (D:\RM programs\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
-I (./User/weight_data.h)(0x67454614)
-I (./User/bsp_wd.h)(0x6743EE3E)
 F (..\components\controller\stm32.c)(0x67402C4E)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ./User -I ./Tasks -I ../referee -I ../components/controller -I ../components/algorithm/Include -I ../components/algorithm-I.\RTE\_Missile_system_24_TypeA-I"D:\RM programs\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include"-I"D:\RM programs\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include"-D__UVISION_VERSION="534" -D_RTE_ -DSTM32F427xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F427xx -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o enginner_2022\stm32.o --omf_browse enginner_2022\stm32.crf --depend enginner_2022\stm32.d)
 I (..\components\controller\stm32.h)(0x67402C4E)
 I (..\components\controller\STM32_Config.h)(0x67402C4E)

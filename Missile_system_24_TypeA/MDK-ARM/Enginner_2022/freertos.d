@@ -50,10 +50,12 @@ enginner_2022\freertos.o: ./User/Moto.h
 enginner_2022\freertos.o: ./User/remote_control.h
 enginner_2022\freertos.o: ./User/bsp_rc.h
 enginner_2022\freertos.o: ../components/algorithm/user_lib.h
+enginner_2022\freertos.o: ./User/weight_data.h
+enginner_2022\freertos.o: ./User/bsp_wd.h
+enginner_2022\freertos.o: D:\RM programs\ARM\ARMCC\Bin\..\include\string.h
+enginner_2022\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
+enginner_2022\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h
 enginner_2022\freertos.o: ../referee/referee_usart_task.h
 enginner_2022\freertos.o: ../referee/fifo.h
 enginner_2022\freertos.o: D:\RM programs\ARM\ARMCC\Bin\..\include\stdio.h
-enginner_2022\freertos.o: D:\RM programs\ARM\ARMCC\Bin\..\include\string.h
 enginner_2022\freertos.o: D:\RM programs\ARM\ARMCC\Bin\..\include\stdlib.h
-enginner_2022\freertos.o: ./User/weight_data.h
-enginner_2022\freertos.o: ./User/bsp_wd.h

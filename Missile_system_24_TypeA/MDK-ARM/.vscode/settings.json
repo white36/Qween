@@ -7,7 +7,8 @@
         "python.linting.pylintEnabled": false,
     
 
-    
+        // "workbench.iconTheme": "fira-code-material-minimal",
+        // "editor.fontFamily": "fira-code-nerd, FiraCode Nerd Font, Consolas, 'Courier New', monospace",
         /*editor*/
         "editor.cursorBlinking": "smooth",//使编辑器光标的闪烁平滑，有呼吸感
         "editor.formatOnPaste": true,//在粘贴时格式化代码
@@ -55,6 +56,7 @@
             "**/bower_components/**": true,
             "**/dist/**": true
         },
+
         /*workbench*/
         "workbench.list.smoothScrolling": true,//使文件列表滚动变平滑
         "workbench.editor.enablePreview": false,//打开文件时不是“预览”模式，即在编辑一个文件时打开编辑另一个文件不会覆盖当前编辑的文件而是新建一个标签页
@@ -93,6 +95,8 @@
         "powermode.combo.timerEnabled": "hide",
         "editor.cursorStyle": "block",
         "editor.codeActionsOnSave": {
+
+
             
         },
         "files.associations": {
