@@ -1,11 +1,8 @@
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\RM programs\ARM\ARMCC\Bin'
 Build target 'Missile_system_24_TypeA'
 compiling weight_data.c...
-USER\weight_data.c(178): warning:  #177-D: function "modbus_to_weight"  was declared but never referenced
-  static void modbus_to_weight(volatile const uint8_t *modbus_buf, WeightData_t *weight_data)
-USER\weight_data.c: 1 warning, 0 errors
 linking...
-Program Size: Code=33152 RO-data=1512 RW-data=320 ZI-data=26264  
+Program Size: Code=33720 RO-data=1512 RW-data=344 ZI-data=26312  
 FromELF: creating hex file...
-"Enginner_2022\Enginner_2022.axf" - 0 Error(s), 1 Warning(s).
-Build Time Elapsed:  00:00:02
+"Enginner_2022\Enginner_2022.axf" - 0 Error(s), 0 Warning(s).
+Build Time Elapsed:  00:00:04

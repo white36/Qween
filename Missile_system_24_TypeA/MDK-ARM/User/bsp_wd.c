@@ -3,6 +3,33 @@
 
 extern UART_HandleTypeDef huart6;
 extern DMA_HandleTypeDef hdma_usart6_rx;
+/**
+  * @brief          初始化UART DMA双缓冲接收
+  * @param[in]      huart: UART句柄指针
+  * @param[in]      DstAddress: 第一缓冲区地址
+  * @param[in]      SecondMemAddress: 第二缓冲区地址
+  * @param[in]      DataLength: 数据长度
+  * @retval         none
+  */
+//void WD_Init(UART_HandleTypeDef *huart, uint8_t *DstAddress, uint8_t *SecondMemAddress, uint32_t DataLength)
+//{
+//    /* 配置UART接收模式为IDLE空闲中断模式 */
+//    huart->ReceptionType = HAL_UART_RECEPTION_TOIDLE;
+//	
+//    huart->RxXferSize = DataLength;
+//    
+//    /* 使能UART的DMA接收和IDLE中断 */
+//    SET_BIT(huart->Instance->CR3, USART_CR3_DMAR);
+//    __HAL_UART_ENABLE_IT(huart, UART_IT_IDLE);
+
+//    /* 启动DMA双缓冲接收 */
+//    HAL_DMAEx_MultiBufferStart(huart->hdmarx, 
+//                              (uint32_t)&huart->Instance->DR,  // 使用DR寄存器
+//                              (uint32_t)DstAddress, 
+//                              (uint32_t)SecondMemAddress, 
+//                              DataLength);
+//}
+
 
 void WD_init(uint8_t *rx1_buf, uint8_t *rx2_buf, uint16_t dma_buf_num)
 {

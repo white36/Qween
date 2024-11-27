@@ -1,17 +1,16 @@
 #ifndef WEIGHT_DATA_H
 #define WEIGHT_DATA_H
 
-//#include "struct_typedef.h"
+#include "struct_typedef.h"
 #include "bsp_wd.h"
 
+#define WEIGHT_RX_BUF_NUM 24u
 
-// #define WEIGHT_RX_BUF_NUM 18u
+#define	WEIGHT_FRAME_LENGTH 12u
 
-// #define	WEIGHT_FRAME_LENGTH 9u
-
-#define LARGE_BUFFER_SIZE 18  // 较大缓冲区的大小
-#define PACKAGE_HEADER_SIZE 3   // 包头长度
-#define PACKAGE_SIZE 9          // 数据包的总长度（例如：01 03 04 00 00 00 00 fa 33）
+// #define LARGE_BUFFER_SIZE 18  // 较大缓冲区的大小
+// #define PACKAGE_HEADER_SIZE 3   // 包头长度
+// #define PACKAGE_SIZE 12          // 数据包的总长度（例如：01 03 04 00 00 00 00 fa 33）
 
 
 /* ----------------------- Data Struct ------------------------------------- */

@@ -1,5 +1,6 @@
 enginner_2022\weight_data.o: USER\weight_data.c
 enginner_2022\weight_data.o: USER\weight_data.h
+enginner_2022\weight_data.o: ./Tasks/struct_typedef.h
 enginner_2022\weight_data.o: USER\bsp_wd.h
 enginner_2022\weight_data.o: ../Core/Inc/main.h
 enginner_2022\weight_data.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
@@ -34,4 +35,5 @@ enginner_2022\weight_data.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_p
 enginner_2022\weight_data.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
 enginner_2022\weight_data.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 enginner_2022\weight_data.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
+enginner_2022\weight_data.o: ../Core/Inc/usart.h
 enginner_2022\weight_data.o: D:\RM programs\ARM\ARMCC\Bin\..\include\string.h

@@ -36,6 +36,7 @@ enginner_2022\stm32f4xx_it.o: ../Core/Inc/stm32f4xx_it.h
 enginner_2022\stm32f4xx_it.o: ./User/remote_control.h
 enginner_2022\stm32f4xx_it.o: ./User/bsp_rc.h
 enginner_2022\stm32f4xx_it.o: ./User/weight_data.h
+enginner_2022\stm32f4xx_it.o: ./Tasks/struct_typedef.h
 enginner_2022\stm32f4xx_it.o: ./User/bsp_wd.h
 enginner_2022\stm32f4xx_it.o: ../referee/referee_usart_task.h
 enginner_2022\stm32f4xx_it.o: ../referee/fifo.h

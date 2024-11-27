@@ -52,4 +52,5 @@ enginner_2022\main.o: ./User/remote_control.h
 enginner_2022\main.o: ./User/bsp_rc.h
 enginner_2022\main.o: ./User/Moto.h
 enginner_2022\main.o: ./User/weight_data.h
+enginner_2022\main.o: ./Tasks/struct_typedef.h
 enginner_2022\main.o: ./User/bsp_wd.h

@@ -70,7 +70,7 @@ void MX_FREERTOS_Init(void);
 void BSP_Init()
 {
 	remote_control_init();		//遥控器初始化
-//	weight_data_init();				//拉力接收初始化(dma)
+	weight_data_init();				//拉力接收初始化(dma)
 	
 //	HAL_GPIO_WritePin(GPIOH, GPIO_PIN_2, GPIO_PIN_SET);    //24V供电
 //	HAL_GPIO_WritePin(GPIOH, GPIO_PIN_3, GPIO_PIN_SET);
