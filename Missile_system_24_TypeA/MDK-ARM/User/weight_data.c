@@ -1,3 +1,31 @@
+/**   ****************************(C) 版权所有 2024 YOUR_ORGANIZATION****************************
+ * @file       weight_data.c
+ * @brief      重量传感器数据接收和解码模块
+ *             处理基于MODBUS协议的重量数据接收，
+ *             使用串口双缓冲DMA进行高效数据接收
+ *             并进行CRC16校验
+ *
+ * @details    实现功能：
+ *             - 重量传感器通信的UART和DMA配置
+ *             - CRC16校验和计算及验证
+ *             - 从ASCII编码的十六进制格式中解码重量数据
+ *             - 双缓冲数据接收以提高性能（防止占用CPU挤占其他任务的正常运行）
+ *
+ * @note       数据解码在freertos中进行，防止占用CPU挤占其他任务的正常运行（这是防止挤占的第二个手段）
+ *
+ * @history    版本        日期            作者           修改内容
+ *             V1.0.0     2024-11-27      BaiShuhao      可利用这个做代码修改的记录
+ *
+ * @verbatim
+ * ==============================================================================
+ *  通信协议详情：
+ *  - 设备地址: 0x01
+ *  - 功能码: 0x03 
+ *  - 数据格式: 可转换为ASCII编码的十六进制重量值 6个字节
+ * ==============================================================================
+ * @endverbatim
+ ****************************(C) 版权所有 2024 YOUR_ORGANIZATION****************************
+ */
 #include "weight_data.h"
 
 #include "main.h"
@@ -175,23 +203,29 @@ void weight_data_init(void)
  * @retval         none
  * @note           1. 函数假设重量数据以特定ASCII码格式编码
  *                 2. 仅提取数据帧中的重量部分进行解码
+ *                 3. PE 标志可以通过一个序列来清除：读取 SR 然后读取或写入 DR，*当 RXNE 被设置时*
+ *                 __HAL_UART_CLEAR_PEFLAG indeed is implemented as read SR, then read DR. No writing SR.
  */
 void weight_data_IRQ(void)
 {
-    if (huart6.Instance->SR & UART_FLAG_IDLE) {
+    if (huart6.Instance->SR & UART_FLAG_IDLE) { //位运算读取状态寄存器的空闲中断标志位
         static uint16_t this_time_rx_len = 0;
 
-        __HAL_UART_CLEAR_PEFLAG(&huart6);
+        __HAL_UART_CLEAR_PEFLAG(&huart6);   //__HAL_UART_CLEAR_PEFLAG 实际上执行了一个“读操作”
+                                            // 先读取 SR，然后读取 DR，这会告诉硬件 IDLE 中断已经被处理，从而清除标志位。
+                                            // 防止重复触发中断（IDLE 标志位不清除会导致中断不断触发）。
+                                            // 为下次检测数据帧空闲状态做好准备。
 
-        if ((hdma_usart6_rx.Instance->CR & DMA_SxCR_CT) == RESET) {
+        if ((hdma_usart6_rx.Instance->CR & DMA_SxCR_CT) == RESET) //判断当前缓冲区
+        {
             /* 当前使用内存缓冲区0 */
             // 失效DMA
             __HAL_DMA_DISABLE(&hdma_usart6_rx);
 
             // 获取接收数据长度
-            this_time_rx_len = WEIGHT_RX_BUF_NUM - hdma_usart6_rx.Instance->NDTR;
+            this_time_rx_len = WEIGHT_RX_BUF_NUM - hdma_usart6_rx.Instance->NDTR; //Number of Data to Transfer Register
 
-            // 重新设定数据长度
+            // 重新设定数据传输计数寄存器数据长度
             hdma_usart6_rx.Instance->NDTR = WEIGHT_RX_BUF_NUM;
 
             // 切换到缓冲区1
@@ -211,7 +245,9 @@ void weight_data_IRQ(void)
                     decode_weight_data(weight_rx_buf[0], &weight_data);
                 }
             }
-        } else {
+        }
+        else
+        {
             /* 当前使用内存缓冲区1 */
             // 失效DMA
             __HAL_DMA_DISABLE(&hdma_usart6_rx);
@@ -247,7 +283,8 @@ void weight_data_IRQ(void)
  * @brief          解析特定格式的重量数据
  * @param[in]      weight_rx_buf: 接收的原始数据缓冲区
  * @param[out]     weight_data: 解析后的重量数据结构体
- * @retval         解码是否成功
+ * @retval         none
+ * @note           借助ASCII码表示的浮点数字符串，将重量数据转换为浮点数
  */
 void decode_weight_data(volatile const uint8_t *weight_rx_buf, WeightData_t *weight_data)
 {

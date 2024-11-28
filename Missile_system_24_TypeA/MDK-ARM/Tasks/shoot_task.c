@@ -45,77 +45,77 @@ static void missile_angle_control_loop(Shoot_Motor_t *trigger_move_control_loop)
 /**
  * @brief        	 弹簧位置控制循环
  * @param[in]      trigger_move_control_loop：要计算位置的结构体
- * @retval         返回空
+ * @retval         none
  */
 static void missile_spring_angle_control_loop(Shoot_Motor_t *missile_move_control_loop);
 
 /**
  * @brief        	 换弹位置控制循环
  * @param[in]      trigger_move_control_loop：要计算位置的结构体
- * @retval         返回空
+ * @retval         none
  */
 static void missile_reload_angle_control_loop(Shoot_Motor_t *missile_move_control_loop);
 
 /**
  * @brief        	 yaw位置控制循环
  * @param[in]      trigger_move_control_loop：要计算位置的结构体
- * @retval         返回空
+ * @retval         none
  */
 static void missile_yaw_angle_control_loop(Shoot_Motor_t *missile_move_control_loop);
 
 /**
  * @brief          计算位置返回值
  * @param[in]      motor_angle_calc：要计算位置的结构体
- * @retval         返回空
+ * @retval         none
  */
 static void Motor_Angle_Cal(Shoot_Motor_t *motor_angle_calc);
 
 /**
  * @brief          计算速度返回值
  * @param[in]      motor_speed_clac：要计算速度的结构体
- * @retval         返回空
+ * @retval         none
  */
 static void Motor_Speed_Cal(Shoot_Motor_t *motor_speed_clac);
 
 /**
  * @brief          计算电流返回值
  * @param[in]      motor_current_calc：要计算电流的结构体
- * @retval         返回空
+ * @retval         none
  */
 static void Motor_Current_Cal(Shoot_Motor_t *motor_current_calc);
 
 /**
  * @brief          判断电机堵转
  * @param[in]      motor_current_calc：要判断堵转的结构体
- * @retval         返回空
+ * @retval         none
  */
 static void Motor_Block(Shoot_Motor_t*blocking_motor);
 
 /**
  * @brief          判断微动开关是否触发
  * @param[in]      void
- * @retval         返回空
+ * @retval         none
  */
 static void Micro_switch_feedback(void);
 
 /**
  * @brief          设置发射控制模式
  * @param[in]      void
- * @retval         返回空
+ * @retval         none
  */
 static void shoot_set_control_mode(missile_shoot_move_t *missile_shoot_set_control);
 
 /**
  * @brief          射击初始化，初始化PID，遥控器指针，电机指针
  * @param[in]      void
- * @retval         返回空
+ * @retval         none
  */
 void shoot_init(void);
 
 /**
  * @brief          舵机控制
  * @param[in]      void
- * @retval         返回空
+ * @retval         none
  */
 void SERIO_Control(void);
 /*----------------------------------内部变量---------------------------*/

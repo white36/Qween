@@ -654,14 +654,14 @@
               <FilePath>.\User\CRC8_CRC16.c</FilePath>
             </File>
             <File>
-              <FileName>weight_data.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\USER\weight_data.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_wd.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\USER\bsp_wd.c</FilePath>
+            </File>
+            <File>
+              <FileName>weight_data.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\USER\weight_data.c</FilePath>
             </File>
           </Files>
         </Group>

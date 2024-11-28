@@ -1258,8 +1258,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\USER\weight_data.c</PathWithFileName>
-      <FilenameWithoutPath>weight_data.c</FilenameWithoutPath>
+      <PathWithFileName>.\USER\bsp_wd.c</PathWithFileName>
+      <FilenameWithoutPath>bsp_wd.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1270,8 +1270,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\USER\bsp_wd.c</PathWithFileName>
-      <FilenameWithoutPath>bsp_wd.c</FilenameWithoutPath>
+      <PathWithFileName>.\USER\weight_data.c</PathWithFileName>
+      <FilenameWithoutPath>weight_data.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
