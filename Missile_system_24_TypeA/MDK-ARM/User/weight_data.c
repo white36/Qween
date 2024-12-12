@@ -1,4 +1,4 @@
-/**   ****************************(C) 版权所有 2024 YOUR_ORGANIZATION****************************
+/**   ****************************(C) 版权所有 2024 none****************************
  * @file       weight_data.c
  * @brief      重量传感器数据接收和解码模块
  *             处理基于MODBUS协议的重量数据接收，
@@ -24,7 +24,7 @@
  *  - 数据格式: 可转换为ASCII编码的十六进制重量值 6个字节
  * ==============================================================================
  * @endverbatim
- ****************************(C) 版权所有 2024 YOUR_ORGANIZATION****************************
+ ****************************(C) 版权所有 none****************************
  */
 #include "weight_data.h"
 
@@ -50,7 +50,8 @@ SemaphoreHandle_t weight_decode_semaphore;
 // 接收原始数据，双缓冲区定义
 static uint8_t weight_rx_buf[2][WEIGHT_RX_BUF_NUM];
 /***************************************************结构体***********************************************************/
-WeightData_t weight_data;
+
+// WeightData_t weight_data;
 
 // 重量请求数据结构体
 // WeightSend_t weight_send = {
@@ -93,12 +94,12 @@ void weight_data_init(void);
  * @param[in]      none
  * @retval         const WeightData_t*: 重量数据指针
  */
-const WeightData_t *get_weight_data_point(void);
+// const WeightData_t *get_weight_data_point(void);
 
 /**
  * @brief          解析特定格式的MODBUS重量数据
  * @param[in]      weight_rx_buf: 接收的原始数据缓冲区，包含完整的MODBUS帧
- * @param[out]     weight_data: 用于存储解析后重量数据的结构体指针
+//  * @param[out]     weight_data: 用于存储解析后重量数据的结构体指针
  * @retval         none
  */
 void weight_data_IRQ(void);
@@ -186,11 +187,11 @@ void weight_data_init(void)
 
 }
 
-// /**直接引用头文件就行
-//   * @brief          获取重量数据指针
-//   * @param[in]      none
-//   * @retval         重量数据指针
-//   */
+/**直接引用头文件就行
+  * @brief          获取重量数据指针
+  * @param[in]      none
+  * @retval         重量数据指针
+  */
 // const WeightData_t *get_weight_data_point(void)
 // {
 //     return &weight_data;
@@ -199,7 +200,7 @@ void weight_data_init(void)
 /**
  * @brief          解析特定格式的MODBUS重量数据
  * @param[in]      weight_rx_buf: 接收的原始数据缓冲区，包含完整的MODBUS帧
- * @param[out]     weight_data: 用于存储解析后重量数据的结构体指针
+//  * @param[out]     weight_data: 用于存储解析后重量数据的结构体指针
  * @retval         none
  * @note           1. 函数假设重量数据以特定ASCII码格式编码
  *                 2. 仅提取数据帧中的重量部分进行解码
@@ -242,7 +243,7 @@ void weight_data_IRQ(void)
                 uint16_t calculated_crc = Modbus_CRC16(weight_rx_buf[0], WEIGHT_FRAME_LENGTH - 2);
 
                 if (received_crc == calculated_crc) {
-                    decode_weight_data(weight_rx_buf[0], &weight_data);
+                    xSemaphoreGiveFromISR(weight_decode_semaphore, NULL);//crc校验也可以移到freertos里、注意要调试一次(但之前貌似已经过了校验，所以大概率不会出问题)
                 }
             }
         }
@@ -271,8 +272,8 @@ void weight_data_IRQ(void)
                                          (weight_rx_buf[1][WEIGHT_FRAME_LENGTH - 1] << 8));
                 uint16_t calculated_crc = Modbus_CRC16(weight_rx_buf[1], WEIGHT_FRAME_LENGTH - 2);
 
-                if (received_crc == calculated_crc) {//crc校验也可以移到freertos里、注意要调试一次(但之前貌似已经过了校验，所以大概率不会出问题)
-                    xSemaphoreGiveFromISR(weight_decode_semaphore, NULL);
+                if (received_crc == calculated_crc) {
+                    xSemaphoreGiveFromISR(weight_decode_semaphore, NULL);//crc校验也可以移到freertos里、注意要调试一次(但之前貌似已经过了校验，所以大概率不会出问题)
                 }
             }
         }

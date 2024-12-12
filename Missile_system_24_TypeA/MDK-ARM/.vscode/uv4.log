@@ -1,4 +1,8 @@
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\RM programs\ARM\ARMCC\Bin'
 Build target 'Missile_system_24_TypeA'
+compiling weight_data.c...
+linking...
+Program Size: Code=36300 RO-data=1576 RW-data=336 ZI-data=26240  
+FromELF: creating hex file...
 "Enginner_2022\Enginner_2022.axf" - 0 Error(s), 0 Warning(s).
-Build Time Elapsed:  00:00:01
+Build Time Elapsed:  00:00:02

@@ -44,9 +44,6 @@ typedef __packed struct
 	uint32_t weight;
 } WeightData_t;
 
-// extern WeightSend_t weihgt_send;
-extern WeightData_t weight_data;
-
 /* ----------------------- Internal Data ----------------------------------- */
 /**
   * @brief       （可以）交换crc校验结果的高低字节

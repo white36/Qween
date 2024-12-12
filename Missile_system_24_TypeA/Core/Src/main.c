@@ -120,10 +120,9 @@ int main(void)
   MX_UART8_Init();
   MX_USART1_UART_Init();
   MX_USART6_UART_Init();
-  MX_TIM11_Init();
   /* USER CODE BEGIN 2 */
 	BSP_Init();
-	HAL_TIM_Base_Start_IT(&htim11);
+	// HAL_TIM_Base_Start_IT(&htim11);
   /* USER CODE END 2 */
 
   /* Init scheduler */

@@ -29,16 +29,16 @@
 static void Shoot_Set_Mode(void);
 
 /**
- * @brief          发射数据更新
+ * @brief          发射控制量计算
  * @param[in]      void
- * @retval         返回空
+ * @retval         none
  */
-static void Shoot_Feedback_Update(void);
+static void shoot_set_control(void);
 
 /**
  * @brief        	 射击位置控制循环
  * @param[in]      trigger_move_control_loop：要计算位置的结构体
- * @retval         返回空
+ * @retval         none
  */
 static void missile_angle_control_loop(Shoot_Motor_t *trigger_move_control_loop);
 
@@ -103,7 +103,7 @@ static void Micro_switch_feedback(void);
  * @param[in]      void
  * @retval         none
  */
-static void shoot_set_control_mode(missile_shoot_move_t *missile_shoot_set_control);
+static void shoot_set_mode(missile_shoot_move_t *missile_shoot_set_control);
 
 /**
  * @brief          射击初始化，初始化PID，遥控器指针，电机指针
@@ -126,9 +126,9 @@ int shoot_step12 = 0;
 fp32 motor_last_angle = 0;
 int turnback_flag = 0;
 int shoot_ready_flag = 0;
-#define SERVO_MIN_PWM   500
-#define SERVO_MAX_PWM   2000
-int PWM=1000;
+#define SERVO_MIN_Pulse   500
+#define SERVO_MAX_Pulse   2000
+int Pulse=1000;
 int turn_shoot_flag = 0;
 int turn_spring_flag = 0;
 int turn_reload_flag = 0;
@@ -142,8 +142,9 @@ double time_flag = 0;
 double last_time_flag = 0;
 int shoot_finish_flag = 1;
 int start_control_flag = 0;
+WeightData_t weight_data;//重量数据
 /*----------------------------------结构体------------------------------*/
-Shoot_Motor_t missile_shoot_motor; 
+Shoot_Motor_t missile_shoot_motor;
 Shoot_Motor_t pull_spring_motor; 
 Shoot_Motor_t reload_motor; 
 Shoot_Motor_t yaw_motor;
@@ -181,12 +182,13 @@ void shoot_task(void const *pvParameters)
             // 设置发射模式
             Shoot_Set_Mode();
             // 发射数据更新
-            Shoot_Feedback_Update();
+            shoot_set_control();
             // 发射控制循环
             shoot_control_loop();
             // 发送控制电流
             //		CAN_CMD_MOTO(&hcan1, CAN_SHOOT_ALL_ID, 0, 0, 0, 0);
-            CAN_CMD_MOTO(&hcan1, CAN_SHOOT_ALL_ID, pull_spring_motor.give_current, reload_motor.give_current, missile_shoot_motor.give_current, yaw_motor.give_current);
+            CAN_CMD_MOTO(&hcan1, CAN_SHOOT_ALL_ID, pull_spring_motor.give_current, reload_motor.give_current,
+                         missile_shoot_motor.give_current, yaw_motor.give_current);
             vTaskDelay(SHOOT_TASK_DELAY_TIME);
         }
 }
@@ -194,7 +196,7 @@ void shoot_task(void const *pvParameters)
 /**
  * @brief          舵机控制
  * @param[in]      void
- * @retval         返回空
+ * @retval         none
  */
 void SERIO_Control(void)
 {
@@ -202,14 +204,14 @@ void SERIO_Control(void)
 		{
 		if(missile_shoot_move.shoot_rc->rc.ch[3] >= 531)
 		{
-			PWM = missile_shoot_move.shoot_rc->rc.ch[3]*1.9;
+			Pulse = missile_shoot_move.shoot_rc->rc.ch[3]*1.9;
 		}
 		else
 		{
-			PWM = 1000;
+			Pulse = 1000;
 		}
-			__HAL_TIM_SetCompare(&htim8, TIM_CHANNEL_1,PWM);
-		if(PWM == 1000)
+			__HAL_TIM_SetCompare(&htim8, TIM_CHANNEL_1,Pulse);
+		if(Pulse == 1000)
 		{
 			HAL_GPIO_WritePin(GPIOE, GPIO_PIN_13, GPIO_PIN_RESET);
 		}
@@ -222,50 +224,50 @@ void SERIO_Control(void)
 		{
 			if(shoot_step == 0)
 			{
-			PWM = 1320;
+			Pulse = 1320;
 			}
 			if(shoot_step == 3)
 			{
-			PWM = 1000;
+			Pulse = 1000;
 			}
 			if(shoot_step == 5)
 			{
-			PWM = 1320;
+			Pulse = 1320;
 				if(shoot_finish_flag == 1)
 				{
 				last_time_flag = time_flag;
 					shoot_finish_flag = 0;
 				}
 			}
-			__HAL_TIM_SetCompare(&htim8, TIM_CHANNEL_1,PWM);
+			__HAL_TIM_SetCompare(&htim8, TIM_CHANNEL_1,Pulse);
 		}
 		if(shoot_control_mode == SHOOT_FIRST_TWO)
 		{
 			if(shoot_step12 == 3)
 			{
-			PWM = 1320;
+			Pulse = 1320;
 			}
 			if(shoot_step12 == 6)
 			{
-			PWM = 1000;
+			Pulse = 1000;
 			}
 			if(shoot_step12 == 2 || shoot_step12 == 8)
 			{
-			PWM = 1320;
+			Pulse = 1320;
 				if(shoot_finish_flag == 1)
 				{
 				last_time_flag = time_flag;
 					shoot_finish_flag = 0;
 				}
 			}
-			__HAL_TIM_SetCompare(&htim8, TIM_CHANNEL_1,PWM);
+			__HAL_TIM_SetCompare(&htim8, TIM_CHANNEL_1,Pulse);
 		}
 }
 
 /**
  * @brief          射击初始化，初始化PID，遥控器指针，电机指针
  * @param[in]      void
- * @retval         返回空
+ * @retval         none
  */
 void shoot_init(void)
 {
@@ -286,8 +288,9 @@ void shoot_init(void)
 		PID_init(&yaw_motor.motor_Pid_angle, PID_POSITION, yaw_angle_pid, MYAW_READY_ANGLE_PID_MAX_OUT, MYAW_READY_ANGLE_PID_MAX_IOUT);
 		PID_init(&yaw_motor.motor_Pid, PID_POSITION, yaw_speed_pid, MYAW_READY_SPEED_PID_MAX_OUT, MYAW_READY_SPEED_PID_MAX_IOUT);
     // 数据指针获取
-    	missile_shoot_move.shoot_rc = get_remote_control_point();
-    	reload_motor.shoot_motor_measure = &Moto_Data1[5];
+        // weight_data = get_weight_data_point();//解码在串口中断时启用
+        missile_shoot_move.shoot_rc = get_remote_control_point();
+        reload_motor.shoot_motor_measure = &Moto_Data1[5];
     	reload_motor.blocking_angle_set = 0;
 		reload_motor.set_angle = 0;
     	pull_spring_motor.shoot_motor_measure = &Moto_Data1[4];
@@ -300,15 +303,15 @@ void shoot_init(void)
 		yaw_motor.blocking_angle_set = 0;
 		yaw_motor.set_angle = 0;	
 		 
-    Shoot_Feedback_Update();
+    shoot_set_control();
 }
 
 /**
- * @brief          发射数据更新
+ * @brief          发射控制量计算
  * @param[in]      void
- * @retval         返回空
+ * @retval         none
  */
-static void Shoot_Feedback_Update(void)
+static void shoot_set_control(void)
 {    
 		Motor_Speed_Cal(&missile_shoot_motor);
 		Motor_Angle_Cal(&missile_shoot_motor);
@@ -337,7 +340,7 @@ static void Shoot_Feedback_Update(void)
 /**
  * @brief          计算速度返回值
  * @param[in]      motor_speed_clac：要计算速度的结构体
- * @retval         返回空
+ * @retval         none
  */
 static void Motor_Speed_Cal(Shoot_Motor_t *motor_speed_clac)
 {
@@ -347,7 +350,7 @@ static void Motor_Speed_Cal(Shoot_Motor_t *motor_speed_clac)
 /**
  * @brief          计算位置返回值
  * @param[in]      motor_angle_calc：要计算位置的结构体
- * @retval         返回空
+ * @retval         none
  */
 static void Motor_Angle_Cal(Shoot_Motor_t *motor_angle_calc)
 {
@@ -368,7 +371,7 @@ static void Motor_Angle_Cal(Shoot_Motor_t *motor_angle_calc)
 /**
  * @brief          计算电流返回值
  * @param[in]      motor_current_calc：要计算电流的结构体
- * @retval         返回空
+ * @retval         none
  */
 static void Motor_Current_Cal(Shoot_Motor_t *motor_current_calc)
 {
@@ -378,7 +381,7 @@ static void Motor_Current_Cal(Shoot_Motor_t *motor_current_calc)
 /**
  * @brief          判断电机堵转
  * @param[in]      motor_current_calc：要判断堵转的结构体
- * @retval         返回空
+ * @retval         none
  */
 static void Motor_Block(Shoot_Motor_t*blocking_motor)
 {
@@ -403,7 +406,7 @@ static void Motor_Block(Shoot_Motor_t*blocking_motor)
 /**
  * @brief          判断微动开关是否触发
  * @param[in]      void
- * @retval         返回空
+ * @retval         none
  */
 static void Micro_switch_feedback()
 {
@@ -420,9 +423,9 @@ else
 /**
  * @brief          设置发射控制模式
  * @param[in]      void
- * @retval         返回空
+ * @retval         none
  */
-static void shoot_set_control_mode(missile_shoot_move_t *missile_shoot_set_control)
+static void shoot_set_mode(missile_shoot_move_t *missile_shoot_set_control)
 {
 
     // 运行模式
@@ -494,7 +497,7 @@ static void shoot_set_control_mode(missile_shoot_move_t *missile_shoot_set_contr
             shoot_control_mode = SHOOT_STOP_CONTROL;
         }
             
-            if (switch_is_up(missile_shoot_set_control->shoot_rc->rc.s[0])&&switch_is_mid(missile_shoot_set_control->shoot_rc->rc.s[SHOOT_CONTROL_CHANNEL]))
+        if (switch_is_up(missile_shoot_set_control->shoot_rc->rc.s[0])&&switch_is_mid(missile_shoot_set_control->shoot_rc->rc.s[SHOOT_CONTROL_CHANNEL]))
         {
             Linear_Actuator(0);
         }
@@ -523,11 +526,11 @@ static void Shoot_Set_Mode(void)
 {
 
     // 设置发射控制模式
-    shoot_set_control_mode(&missile_shoot_move);
-		
-    // 保存上次射击模式
+    shoot_set_mode(&missile_shoot_move);
+	
+	// 保存为上次射击模式，以便下个循环读取
     last_shoot_mode = shoot_mode;
-
+	
     // 更新当前射击模式
 	
 	
@@ -560,7 +563,7 @@ void shoot_control_loop(void)
 						shoot_step++;
 				}
 		}
-		if(shoot_step == 2 && PWM == 1320)
+		if(shoot_step == 2 && Pulse == 1320)
 			{
 				missile_shoot_motor.set_angle -= 0.8f;
 					if(missile_shoot_motor.set_angle <= 0)
@@ -595,7 +598,7 @@ void shoot_control_loop(void)
 //						shoot_step++;
 //				}
 //		}
-//		if(shoot_step == 2 && PWM == 1320)
+//		if(shoot_step == 2 && Pulse == 1320)
 //			{
 //				missile_shoot_motor.set_angle -= 0.8f;
 //					if(missile_shoot_motor.set_angle <= 880)
@@ -604,7 +607,7 @@ void shoot_control_loop(void)
 //						shoot_step++;
 //					}	
 //			}
-//		if(shoot_step == 3 && PWM == 1000)
+//		if(shoot_step == 3 && Pulse == 1000)
 //			{
 //				missile_shoot_motor.set_angle += 0.8f;
 //					if(micro_switch_on == 1)
@@ -623,7 +626,7 @@ void shoot_control_loop(void)
 //						shoot_step++;
 //					}	
 //			}
-//			if(shoot_step == 5&& PWM == 1320 && time_flag - last_time_flag >= 20)
+//			if(shoot_step == 5&& Pulse == 1320 && time_flag - last_time_flag >= 20)
 //			{
 //				if(reload_next == 1)
 //				{
@@ -785,7 +788,7 @@ void shoot_control_loop(void)
 						shoot_step12++;
 					}	
 			}
-			if(shoot_step12 == 2&& PWM == 1320 && time_flag - last_time_flag >= 20)
+			if(shoot_step12 == 2&& Pulse == 1320 && time_flag - last_time_flag >= 20)
 			{
 				if(reload_next == 1)
 				{
@@ -829,7 +832,7 @@ void shoot_control_loop(void)
 						shoot_step12++;
 				}
 		}
-		if(shoot_step12 == 5 && PWM == 1320)
+		if(shoot_step12 == 5 && Pulse == 1320)
 			{
 				missile_shoot_motor.set_angle -= 0.8f;
 					if(missile_shoot_motor.set_angle <= 880)
@@ -838,7 +841,7 @@ void shoot_control_loop(void)
 						shoot_step12++;
 					}	
 			}
-		if(shoot_step12 == 6 && PWM == 1000)
+		if(shoot_step12 == 6 && Pulse == 1000)
 			{
 				missile_shoot_motor.set_angle += 0.8f;
 					if(micro_switch_on == 1)
@@ -857,7 +860,7 @@ void shoot_control_loop(void)
 						shoot_step12++;
 					}	
 			}
-			if(shoot_step12 == 8&& PWM == 1320 && time_flag - last_time_flag >= 20)
+			if(shoot_step12 == 8&& Pulse == 1320 && time_flag - last_time_flag >= 20)
 			{
 				if(reload_next == 1)
 				{
@@ -907,7 +910,7 @@ void shoot_control_loop(void)
 /**
  * @brief          发射位置控制循环
  * @param[in]      trigger_move_control_loop：要计算位置的结构体
- * @retval         返回空
+ * @retval         none
  */
 static void missile_angle_control_loop(Shoot_Motor_t *missile_move_control_loop)
 {
@@ -923,7 +926,7 @@ static void missile_angle_control_loop(Shoot_Motor_t *missile_move_control_loop)
 /**
  * @brief          弹簧位置控制循环
  * @param[in]      trigger_move_control_loop：要计算位置的结构体
- * @retval         返回空
+ * @retval         none
  */
 static void missile_spring_angle_control_loop(Shoot_Motor_t *missile_move_control_loop)
 {
@@ -939,7 +942,7 @@ static void missile_spring_angle_control_loop(Shoot_Motor_t *missile_move_contro
 /**
  * @brief          换弹位置控制循环
  * @param[in]      trigger_move_control_loop：要计算位置的结构体
- * @retval         返回空
+ * @retval         none
  */
 static void missile_reload_angle_control_loop(Shoot_Motor_t *missile_move_control_loop)
 {
@@ -955,7 +958,7 @@ static void missile_reload_angle_control_loop(Shoot_Motor_t *missile_move_contro
 /**
  * @brief          yaw位置控制循环
  * @param[in]      trigger_move_control_loop：要计算位置的结构体
- * @retval         返回空  
+ * @retval         none  
  */
 static void missile_yaw_angle_control_loop(Shoot_Motor_t *missile_move_control_loop)
 {
